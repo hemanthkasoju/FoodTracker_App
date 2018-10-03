@@ -10,7 +10,7 @@ import UIKit
 
 @UIApplicationMain
 
-// It creates a window where the app contents are draw and provides a place to respond to state transitions within the app.
+// It creates a window where the app contents are drawn and provides a place to respond to state transitions within the app.
 // It creates entry point to the application
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
