@@ -7,14 +7,18 @@
 //
 
 import UIKit
+
+//This imports the unified logging system
 import os.log
 
+// This class manages the views that displays list of meals, and have a reference to the data model behind what’s shown in the user interface.
 class MealTableViewController: UITableViewController {
     
     //MARK: Properties
     
-    var meals = [Meal]()
+    var meals = [Meal]() // This is reference to each meal
 
+    //Called when the table view controller’s content view is created and loaded from storyboard.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,21 +41,24 @@ class MealTableViewController: UITableViewController {
     }
 
     //MARK: - Table view data source
-
+    
+    // This function tells the table view how many sections to display.
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
+    // This function tells the table view how many rows to display in a given section.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meals.count
     }
 
-    
+    // This function configures and provides a cell to display for a given row
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "MealTableViewCell"
         
+        // dequeueReusableCell : Reuses the old cells when scrolled instead of creating new cells.
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MealTableViewCell  else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
@@ -66,15 +73,11 @@ class MealTableViewController: UITableViewController {
         return cell
     }
     
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -141,6 +144,7 @@ class MealTableViewController: UITableViewController {
     
     //MARK: Actions
     
+    // To save the meal list when a user adds, removes, or edits a meal
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? MealViewController, let meal = sourceViewController.meal {
             
@@ -164,6 +168,7 @@ class MealTableViewController: UITableViewController {
     
     //MARK: Private Methods
     
+   // This function is used to load sample data into the app.
     private func loadSampleMeals() {
         
         let photo1 = UIImage(named: "meal1")
@@ -185,6 +190,7 @@ class MealTableViewController: UITableViewController {
         meals += [meal1, meal2, meal3]
     }
     
+    // This method saves the new that's been added
     private func saveMeals() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path)
         if isSuccessfulSave {
@@ -194,6 +200,9 @@ class MealTableViewController: UITableViewController {
         }
     }
     
+    /* This function loads the meal list
+     Returns : array of Meal objects or might return nil
+     */
     private func loadMeals() -> [Meal]?  {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Meal.ArchiveURL.path) as? [Meal]
     }

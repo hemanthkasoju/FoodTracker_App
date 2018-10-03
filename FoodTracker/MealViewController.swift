@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+//This imports the unified logging system
 import os.log
 
 
@@ -45,7 +47,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     //MARK: UITextFieldDelegate
     
-    // Called when the user presses on the text field to start editing the text field.
+    // Called when the user presses on the text field to start editing the text field. It disables the Save button while the user is editing the text field.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
         saveButton.isEnabled = false
@@ -64,7 +66,10 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     // Called immediately after textFieldShouldReturn() function, gives us access to the text user entered in the text field.
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // This method is called to make sure the Save button is disabled until user enters a valid name.
         updateSaveButtonState()
+        
         navigationItem.title = textField.text
     }
     
@@ -96,6 +101,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     //MARK: Navigation
     
+    // This function is used for cancelling the addition of a new meal
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
         let isPresentingInAddMealMode = presentingViewController is UINavigationController

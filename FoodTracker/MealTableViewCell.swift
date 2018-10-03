@@ -8,11 +8,18 @@
 
 import UIKit
 
+// This class consists of references to the contents such as UIViewimage, label, text field present in each cell of the table
 class MealTableViewCell: UITableViewCell {
     
     //MARK: Properties
+    
+    //This is the reference for meal name in each cell of the table
     @IBOutlet weak var nameLabel: UILabel!
+    
+    // This is a reference to the image of the meal in the cell
     @IBOutlet weak var photoImageView: UIImageView!
+    
+    // This is a reference to the rating of the meal
     @IBOutlet weak var ratingControl: RatingControl!
 
     override func awakeFromNib() {

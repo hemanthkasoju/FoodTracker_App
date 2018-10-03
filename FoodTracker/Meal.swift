@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+//This imports the unified logging system
 import os.log
 
 // This class consists of the data of each meal
